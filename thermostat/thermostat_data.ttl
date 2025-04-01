@@ -1,0 +1,6 @@
+<http://example.org/iot/Thermostat1234>
+        a       "IoTDevice" ;
+        <http://example.org/iot/hasTemperature>
+                "22.0"^^<http://www.w3.org/2001/XMLSchema#double> ;
+        <http://example.org/iot/heaterStatus>
+                false .

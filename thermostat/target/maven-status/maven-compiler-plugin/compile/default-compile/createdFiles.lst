@@ -1,0 +1,3 @@
+com\iot\IoTThermostat.class
+com\iot\ThermostatState.class
+com\iot\Temperature.class

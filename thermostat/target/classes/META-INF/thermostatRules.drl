@@ -1,0 +1,22 @@
+package com.iot.thermostat
+
+import com.iot.Temperature
+import com.iot.ThermostatState
+
+rule "Turn on heater when temperature is low"
+    when
+        $temp : Temperature(value < 20)
+        $state : ThermostatState(heaterOn == false)
+    then
+        System.out.println("Activating heater - temperature is low: " + $temp.getValue());
+        $state.setHeaterOn(true);
+end
+
+rule "Turn off heater when temperature is high"
+    when
+        $temp : Temperature(value > 22)
+        $state : ThermostatState(heaterOn == true)
+    then
+        System.out.println("Deactivating heater - temperature is high: " + $temp.getValue());
+        $state.setHeaterOn(false);
+end

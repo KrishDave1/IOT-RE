@@ -1,8 +1,22 @@
-import com.iot.Temperature;
+package rules
 
-rule "Overheat Alert"
-when
-    $temp : Temperature(value > 30)
-then
-    System.out.println("Overheat Alert: Temperature is too high!");
+import com.iot.Temperature
+import com.iot.ThermostatState
+
+rule "Turn on heater when cold"
+    when
+        $temp : Temperature(value < 18)
+        $state : ThermostatState(heaterOn == false)
+    then
+        System.out.println("Temperature is cold (" + $temp.getValue() + "°C), turning heater ON");
+        $state.setHeaterOn(true);
+end
+
+rule "Turn off heater when warm enough"
+    when
+        $temp : Temperature(value > 22)
+        $state : ThermostatState(heaterOn == true)
+    then
+        System.out.println("Temperature is warm (" + $temp.getValue() + "°C), turning heater OFF");
+        $state.setHeaterOn(false);
 end

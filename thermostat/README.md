@@ -30,23 +30,32 @@ graph TD
 
 ## Installation
 
-1. Clone the Repository
+1. **Clone the Repository**
 
--git clone https://github.com/KrishDave1/IOT-RE.git
--cd IOT-RE\thermostat
+   ```bash
+   git clone https://github.com/KrishDave1/IOT-RE.git
+   cd IOT-RE/thermostat
+   ```
 
-pip install paho-mqtt
+2. **Install Python Dependencies**
+   ```bash
+   pip install paho-mqtt
+   ```
 
-2. Start Python Simulator
+## Running the System
 
--cd thermostat
+### Start Python Simulator
 
--python thermostat.py
+```bash
+python thermostat.py
+```
 
-3. Build and Run Java Controller
+### Build and Run Java Controller
 
--mvn clean package
--mvn exec:java -Dexec.mainClass="com.iot.IoTThermostat"
+```bash
+mvn clean package
+mvn exec:java -Dexec.mainClass="com.iot.IoTThermostat"
+```
 
 ## Key Components
 

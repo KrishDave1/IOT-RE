@@ -42,3 +42,45 @@ Start Python Simulator
 
 cd thermostat
 python thermostat.py
+
+Build and Run Java Controller
+mvn clean package
+mvn exec:java -Dexec.mainClass="com.iot.IoTThermostat"
+
+## Key Components
+
+### 1. MQTT Communication
+
+- **Python Simulator** publishes temperature data every 10s to `thermostat/temperature`
+- **Java Controller** subscribes and processes messages
+- **QoS 1** for guaranteed delivery
+- Secure TLS connection to HiveMQ Cloud
+
+### 2. Drools Rules Engine
+
+Rules defined in `rules.drl` control heater operations. Actual rules from the system:
+
+```drl
+package rules
+
+import com.iot.Temperature
+import com.iot.ThermostatState
+
+rule "Turn on heater when cold"
+    when
+        $temp : Temperature(value < 18)
+        $state : ThermostatState(heaterOn == false)
+    then
+        System.out.println("Temperature is cold (" + $temp.getValue() + "°C), turning heater ON");
+        $state.setHeaterOn(true);
+end
+
+rule "Turn off heater when warm enough"
+    when
+        $temp : Temperature(value > 22)
+        $state : ThermostatState(heaterOn == true)
+    then
+        System.out.println("Temperature is warm (" + $temp.getValue() + "°C), turning heater OFF");
+        $state.setHeaterOn(false);
+end
+```

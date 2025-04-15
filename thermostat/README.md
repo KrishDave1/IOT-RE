@@ -84,3 +84,30 @@ rule "Turn off heater when warm enough"
         $state.setHeaterOn(false);
 end
 ```
+
+### 3. RDF Data Storage
+
+The system persists operational data using semantic web technologies:
+
+**Key Features:**
+
+- Stores temperature readings with timestamps and heater states
+- Uses Apache Jena framework for RDF processing
+- Outputs data in Turtle format (.ttl) for human readability
+- Creates semantic relationships between measurements
+- Enables future SPARQL querying capabilities
+
+**Example Data Structure:**
+
+```turtle
+<http://iot.org/thermostat/Reading/1744137385292>
+        a       <http://iot.org/thermostat/TemperatureReading> ;
+        <http://iot.org/thermostat/heaterState>
+                true ;
+        <http://iot.org/thermostat/timestamp>
+                "1744137385292"^^<http://www.w3.org/2001/XMLSchema#long> ;
+        <http://iot.org/thermostat/unit>
+                "°C" ;
+        <http://iot.org/thermostat/value>
+                "19.06"^^<http://www.w3.org/2001/XMLSchema#double> .
+```

@@ -28,7 +28,7 @@ graph TD
     E -->|Updated Status| B
 ```
 
-Installation
+## Installation
 
 1. Clone the Repository
 
@@ -37,13 +37,13 @@ cd IOT-RE\thermostat
 
 pip install paho-mqtt
 
-Running the System
-Start Python Simulator
+2. Start Python Simulator
 
 cd thermostat
 python thermostat.py
 
-Build and Run Java Controller
+3. Build and Run Java Controller
+
 mvn clean package
 mvn exec:java -Dexec.mainClass="com.iot.IoTThermostat"
 

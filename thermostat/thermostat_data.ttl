@@ -1,10 +1,10 @@
-<http://iot.org/thermostat/Reading/1744137385292>
+<http://iot.org/thermostat/Reading/1745259695288>
         a       <http://iot.org/thermostat/TemperatureReading> ;
         <http://iot.org/thermostat/heaterState>
-                true ;
+                false ;
         <http://iot.org/thermostat/timestamp>
-                "1744137385292"^^<http://www.w3.org/2001/XMLSchema#long> ;
+                "1745259695288"^^<http://www.w3.org/2001/XMLSchema#long> ;
         <http://iot.org/thermostat/unit>
-                "Â°C" ;
+                "°C" ;
         <http://iot.org/thermostat/value>
-                "19.06"^^<http://www.w3.org/2001/XMLSchema#double> .
+                "22.35"^^<http://www.w3.org/2001/XMLSchema#double> .

@@ -10,6 +10,7 @@ rule "Turn on heater when temperature is low"
     then
         System.out.println("Activating heater - temperature is low: " + $temp.getValue());
         $state.setHeaterOn(true);
+        update($state);  // Notify the engine of the change
 end
 
 rule "Turn off heater when temperature is high"
@@ -19,4 +20,5 @@ rule "Turn off heater when temperature is high"
     then
         System.out.println("Deactivating heater - temperature is high: " + $temp.getValue());
         $state.setHeaterOn(false);
+        update($state);  // Notify the engine of the change
 end

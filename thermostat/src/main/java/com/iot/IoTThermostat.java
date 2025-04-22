@@ -38,6 +38,7 @@ public class IoTThermostat {
     private static final String STATUS_TOPIC = "thermostat/status";
     private static final String HEATER_TOPIC = "thermostat/heaterStatus";
     private static final String ALERT_TOPIC = "thermostat/alerts";
+    private static final String HEATER_CMD_TOPIC = "thermostat/heaterControl";
     
     // System components
     private static MqttClient mqttClient;
@@ -171,6 +172,8 @@ public class IoTThermostat {
             });
     
             mqttClient.connect(options);
+            // Add to setupMqtt() after connecting:
+            mqttClient.subscribe(HEATER_CMD_TOPIC, 1);
             
             // Schedule periodic status updates
             scheduler.scheduleAtFixedRate(() -> {
@@ -222,6 +225,12 @@ public class IoTThermostat {
                 CompletableFuture.runAsync(() -> {
                     updateTemperature(newTemp, timestamp);
                 });
+            }
+            // Add to handleMqttMessage():
+            else if (HEATER_CMD_TOPIC.equals(topic)) {
+                String command = new String(message.getPayload());
+                System.out.println("Received heater control command: " + command);
+                // Add logic if you want manual override capability
             }
         } catch (Exception e) {
             System.err.println("Error processing MQTT message:");
@@ -341,7 +350,10 @@ public class IoTThermostat {
     public static void publishHeaterStatus() {
         try {
             String status = heaterOn ? "ON" : "OFF";
-            mqttClient.publish(HEATER_TOPIC, status.getBytes(), 1, false);
+            MqttMessage message = new MqttMessage(status.getBytes());
+            message.setQos(1);
+            message.setRetained(true);  // Retain last heater status for new subscribers
+            mqttClient.publish(HEATER_TOPIC, message);
             System.out.println("Published heater status: " + status);
         } catch (MqttException e) {
             System.err.println("Failed to publish heater status:");

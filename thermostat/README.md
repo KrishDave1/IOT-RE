@@ -20,12 +20,19 @@ An IoT system that simulates thermostat operation using MQTT for communication, 
 
 ```mermaid
 graph TD
-    A[Python Simulator] -->|Publishes| B[MQTT Cloud]
-    B -->|Subscribes| C[Java Controller]
-    C --> D{Drools Engine}
-    D -->|Rules Applied| E[Heater Status]
-    C --> F[RDF Triple Store]
-    E -->|Updated Status| B
+    A[Python Simulator] -->|Generates temp readings| B[Python Client]
+    B -->|Publishes to thermostat/temperature| C[MQTT Broker]
+    C -->|Subscribes securely| D[Java System]
+    D -->|Parses and validates data| E[Create/Update RDF Model]
+    E -->|Persist to Triple Store| F[RDF Triple Store]
+    E -->|Populate Thermostat object| G[Drools Rule Engine]
+    G -->|Evaluates rules| H[Heater Status]
+    H -->|Update status| I[Update RDF Model]
+    I -->|Re-persist RDF| F
+    I -->|Publish to thermostat/status| C
+    C -->|Subscribe to thermostat/status| B
+    B -->|Adjust simulation based on status| A
+    A -->|Publish updated temp readings| B
 ```
 
 ## Installation

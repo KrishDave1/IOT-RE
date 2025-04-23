@@ -1,5 +1,9 @@
 # IOT-RE
 
+# NOTE:
+
+The information about the implementation of the thermostat system including its logic and working is in the IOT_REPORT pdf file and the research behind our thought process and the motivation, future work and the things we learnt during this Reading Elective is in the ppt.
+
 # Smart Thermostat System with MQTT and Drools
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
